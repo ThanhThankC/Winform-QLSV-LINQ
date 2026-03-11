@@ -1,0 +1,24 @@
+﻿CREATE DATABASE QLSinhVienDB;
+GO
+USE QLSinhVienDB;
+GO
+
+CREATE TABLE Users (
+    Username NVARCHAR(50) PRIMARY KEY,
+    Password NVARCHAR(100) NOT NULL,
+    Role NVARCHAR(20)
+);
+
+CREATE TABLE Classes (
+    ClassID INT IDENTITY(1,1) PRIMARY KEY,
+    ClassName NVARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Students (
+    StudentID INT IDENTITY(1,1) PRIMARY KEY,
+    FullName NVARCHAR(100) NOT NULL,
+    Age INT,
+    ClassID INT FOREIGN KEY REFERENCES Classes(ClassID)
+);
+
+INSERT INTO Users VALUES ('admin', '123456', 'Admin');

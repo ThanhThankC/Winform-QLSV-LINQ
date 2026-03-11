@@ -18,10 +18,10 @@ Dự án quản lý sinh viên đơn giản với 3 form chính.
 3. Build & Run (F5)
 4. Đăng nhập: **admin / 123456**
 
-## 👥 Thành viên
+## 👥 Thành viên (Giả lập)
 | Thành viên | Vai trò | Phần đảm nhận |
 |---|---|---|
-| ThanhThanhC | Admin | Setup, Login, Quản lý Sinh viên |
+| ThanhThankC | Admin | Setup, Login, Quản lý Sinh viên |
 | DinhThanhK | Collaborator | Quản lý Lớp học |
 
 ## 📂 Cấu trúc Nhánh

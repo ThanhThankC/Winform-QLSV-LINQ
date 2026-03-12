@@ -28,6 +28,7 @@ CREATE TABLE Students (
 );
 
 INSERT INTO Users (Username, Password, Role) VALUES 
+('ad', '123', 'Admin'),
 ('admin', '123456', 'Admin'),
 ('giangvien', '111111', 'User');
 

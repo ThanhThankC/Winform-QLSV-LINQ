@@ -16,7 +16,7 @@ Dự án quản lý sinh viên đơn giản với 3 form chính.
 1. Clone repo: `git clone https://github.com/ThanhThankC/Winform-QLSV-LINQ.git`
 2. Mở `QLSinhVien.sln` bằng Visual Studio
 3. Build & Run (F5)
-4. Đăng nhập: **admin / 123456**
+4. Đăng nhập: **ad / 123**
 
 ## 👥 Thành viên (Giả lập)
 | Thành viên | Vai trò | Phần đảm nhận |

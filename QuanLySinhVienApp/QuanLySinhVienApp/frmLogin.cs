@@ -13,8 +13,8 @@ namespace QuanLySinhVienApp
 {
     public partial class frmLogin : Form
     {
-        private bool isEnableUsername = false;
-        private bool isEnablePassword = false;
+        private bool isValidUsername = false;
+        private bool isValidPassword = false;
 
         public frmLogin()
         {
@@ -26,7 +26,7 @@ namespace QuanLySinhVienApp
         {
             string username = txtUsername.Text.Trim();
 
-            isEnableUsername = !string.IsNullOrEmpty(username);
+            isValidUsername = !string.IsNullOrEmpty(username);
             UpdateButtonVisual();
         }
 
@@ -34,7 +34,7 @@ namespace QuanLySinhVienApp
         {
             string password = txtPassword.Text.Trim();
 
-            isEnablePassword = !string.IsNullOrEmpty(password);
+            isValidPassword = !string.IsNullOrEmpty(password);
             UpdateButtonVisual();
         }
 
@@ -64,7 +64,7 @@ namespace QuanLySinhVienApp
 
         private void UpdateButtonVisual()
         {
-            btnLogin.Enabled = isEnableUsername && isEnablePassword;
+            btnLogin.Enabled = isValidUsername && isValidPassword;
         }
     }
 }

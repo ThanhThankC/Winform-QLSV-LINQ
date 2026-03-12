@@ -102,7 +102,7 @@ namespace QuanLySinhVienApp
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _ClassID;
+		private string _ClassID;
 		
 		private string _ClassName;
 		
@@ -112,7 +112,7 @@ namespace QuanLySinhVienApp
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnClassIDChanging(int value);
+    partial void OnClassIDChanging(string value);
     partial void OnClassIDChanged();
     partial void OnClassNameChanging(string value);
     partial void OnClassNameChanged();
@@ -124,8 +124,8 @@ namespace QuanLySinhVienApp
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClassID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ClassID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClassID", DbType="NVarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string ClassID
 		{
 			get
 			{
@@ -326,13 +326,13 @@ namespace QuanLySinhVienApp
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _StudentID;
+		private string _StudentID;
 		
 		private string _FullName;
 		
 		private System.Nullable<int> _Age;
 		
-		private System.Nullable<int> _ClassID;
+		private string _ClassID;
 		
 		private EntityRef<Class> _Class;
 		
@@ -340,13 +340,13 @@ namespace QuanLySinhVienApp
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnStudentIDChanging(int value);
+    partial void OnStudentIDChanging(string value);
     partial void OnStudentIDChanged();
     partial void OnFullNameChanging(string value);
     partial void OnFullNameChanged();
     partial void OnAgeChanging(System.Nullable<int> value);
     partial void OnAgeChanged();
-    partial void OnClassIDChanging(System.Nullable<int> value);
+    partial void OnClassIDChanging(string value);
     partial void OnClassIDChanged();
     #endregion
 		
@@ -356,8 +356,8 @@ namespace QuanLySinhVienApp
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StudentID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int StudentID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StudentID", DbType="NVarChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string StudentID
 		{
 			get
 			{
@@ -416,8 +416,8 @@ namespace QuanLySinhVienApp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClassID", DbType="Int")]
-		public System.Nullable<int> ClassID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClassID", DbType="NVarChar(10)")]
+		public string ClassID
 		{
 			get
 			{
@@ -467,7 +467,7 @@ namespace QuanLySinhVienApp
 					}
 					else
 					{
-						this._ClassID = default(Nullable<int>);
+						this._ClassID = default(string);
 					}
 					this.SendPropertyChanged("Class");
 				}

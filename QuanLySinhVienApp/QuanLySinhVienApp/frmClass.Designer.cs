@@ -129,6 +129,7 @@
             this.btnBack.TabIndex = 10;
             this.btnBack.Text = "Quay lại";
             this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // dgvClasses
             // 
@@ -136,7 +137,7 @@
             this.dgvClasses.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dgvClasses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvClasses.Location = new System.Drawing.Point(57, 269);
-            this.dgvClasses.Name = "dgvStudents";
+            this.dgvClasses.Name = "dgvClasses";
             this.dgvClasses.RowHeadersWidth = 51;
             this.dgvClasses.RowTemplate.Height = 24;
             this.dgvClasses.Size = new System.Drawing.Size(673, 209);

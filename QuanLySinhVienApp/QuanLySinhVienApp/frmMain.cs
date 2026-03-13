@@ -19,7 +19,9 @@ namespace QuanLySinhVienApp
 
         private void btnStudents_Click(object sender, EventArgs e)
         {
-
+            frmStudent frmStudent = new frmStudent();
+            frmStudent.Show();
+            this.Close();
         }
 
         private void btnClasses_Click(object sender, EventArgs e)

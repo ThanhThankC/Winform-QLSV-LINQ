@@ -144,5 +144,12 @@ namespace QuanLySinhVienApp
                 txtClassName.Text = dgvClasses.Rows[e.RowIndex].Cells["ClassName"].Value.ToString();
             }
         }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            frmMain frmMain = new frmMain();
+            frmMain.Show();
+            this.Close();
+        }
     }
 }

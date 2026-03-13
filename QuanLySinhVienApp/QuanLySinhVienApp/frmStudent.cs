@@ -16,8 +16,8 @@ namespace QuanLySinhVienApp
         public frmStudent()
         {
             InitializeComponent();
-            LoadStudents();
             LoadComboBox();
+            LoadStudents();
         }
         private void LoadStudents(string keyword = "")
         {
@@ -35,6 +35,8 @@ namespace QuanLySinhVienApp
 
                 dgvStudents.DataSource = query.ToList();
             }
+
+            ToggleDeleteAllButton();
         }
 
         private void LoadComboBox()
@@ -112,7 +114,41 @@ namespace QuanLySinhVienApp
 
         private void btnDeleteAll_Click(object sender, EventArgs e)
         {
-            //TODO xoa toan bo trong grid.
+            var confirm = MessageBox.Show($"Bạn có chắc chắn muốn xóa TOÀN BỘ {dgvStudents.Rows.Count} sinh viên đang hiển thị trên bảng không? Hành động này không thể hoàn tác!",
+                                           "Cảnh báo nguy hiểm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (confirm == DialogResult.Yes)
+            {
+                try
+                {
+                    List<string> idsToDelete = new List<string>();
+
+                    foreach (DataGridViewRow row in dgvStudents.Rows)
+                    {
+                        if (row.Cells["StudentID"].Value != null)
+                        {
+                            idsToDelete.Add(row.Cells["StudentID"].Value.ToString());
+                        }
+                    }
+
+                    using (var db = new DataClasses1DataContext())
+                    {
+                        var studentsToDelete = db.Students.Where(s => idsToDelete.Contains(s.StudentID)).ToList();
+
+                        db.Students.DeleteAllOnSubmit(studentsToDelete);
+                        db.SubmitChanges();
+                    }
+
+                    MessageBox.Show($"Đã xóa toàn bộ {dgvStudents.Rows.Count} sinh viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    ClearInputs();
+                    LoadStudents(txtSearch.Text.Trim());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xóa hàng loạt: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -156,18 +192,34 @@ namespace QuanLySinhVienApp
             txtStudentID.Text = "";
             cboClassID.SelectedIndex = -1;
             txtFullName.Text = "";
-            txtSearch.Text = "";
+            //txtSearch.Text = "";
+            dgvStudents.ClearSelection();
+            txtStudentID.Focus();
         }
 
         private void dgvStudents_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
-                txtStudentID.Text = dgvStudents.Rows[e.RowIndex].Cells["StudentID"].Value.ToString();
-                txtFullName.Text = dgvStudents.Rows[e.RowIndex].Cells["FullName"].Value.ToString();
-                nudAge.Value = Convert.ToDecimal(dgvStudents.Rows[e.RowIndex].Cells["Age"].Value);
-                cboClassID.SelectedValue = dgvStudents.Rows[e.RowIndex].Cells["ClassID"].Value.ToString();
+                var row = dgvStudents.Rows[e.RowIndex];
+
+                txtStudentID.Text = row.Cells["StudentID"].Value?.ToString();
+                txtFullName.Text = row.Cells["FullName"].Value?.ToString();
+                nudAge.Value = Convert.ToDecimal(row.Cells["Age"].Value);
+                cboClassID.SelectedValue = row.Cells["ClassID"].Value?.ToString();
             }
+        }
+
+        private void ToggleDeleteAllButton()
+        {
+            btnDeleteAll.Enabled = dgvStudents.Rows.Count > 0;
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            frmMain frmMain = new frmMain();
+            frmMain.Show();
+            this.Close();
         }
     }
 }

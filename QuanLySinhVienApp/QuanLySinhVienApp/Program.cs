@@ -16,8 +16,8 @@ namespace QuanLySinhVienApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new frmLogin());
-            Application.Run(new frmStudent());
+            Application.Run(new frmLogin());
+            //Application.Run(new frmStudent());
         }
     }
 }

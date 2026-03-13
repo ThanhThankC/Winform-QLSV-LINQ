@@ -93,6 +93,7 @@
             this.btnBack.TabIndex = 23;
             this.btnBack.Text = "Quay lại";
             this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // btnClear
             // 
@@ -246,6 +247,7 @@
             // 
             // cboClassID
             // 
+            this.cboClassID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboClassID.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboClassID.FormattingEnabled = true;
             this.cboClassID.Location = new System.Drawing.Point(657, 129);

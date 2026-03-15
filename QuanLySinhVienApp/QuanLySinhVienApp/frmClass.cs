@@ -23,13 +23,19 @@ namespace QuanLySinhVienApp
 
         private void LoadClasses(string keyword = "")
         {
-            using (var db = new DataClasses1DataContext())
+            try
             {
-                var query = from c in db.Classes
-                            where keyword == "" || c.ClassID.Contains(keyword) || c.ClassName.Contains(keyword)
-                            select c;
-
-                dgvClasses.DataSource = query.ToList();
+                using (var db = new DataClasses1DataContext())
+                {
+                    var query = from c in db.Classes
+                                where keyword == "" || c.ClassID.Contains(keyword) || c.ClassName.Contains(keyword)
+                                select c;
+                    dgvClasses.DataSource = query.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải danh sách lớp: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -41,60 +47,73 @@ namespace QuanLySinhVienApp
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext())
+            try
             {
-                var newClass = new Class
+                using (var db = new DataClasses1DataContext())
                 {
-                    ClassID = txtClassID.Text.Trim(),
-                    ClassName = txtClassName.Text.Trim()
-                };
-                db.Classes.InsertOnSubmit(newClass);
-                db.SubmitChanges();
+                    var newClass = new Class { ClassID = txtClassID.Text.Trim(), ClassName = txtClassName.Text.Trim() };
+                    db.Classes.InsertOnSubmit(newClass);
+                    db.SubmitChanges();
+                }
+                MessageBox.Show("Thêm lớp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearInputs();
+                LoadClasses();
             }
-
-            MessageBox.Show("Thêm lớp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            ClearInputs();
-            LoadClasses();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi thêm lớp: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext())
+            try
             {
-                var existingClass = db.Classes.FirstOrDefault(c => c.ClassID == txtClassID.Text.Trim());
-                existingClass.ClassName = txtClassName.Text.Trim();
-                db.SubmitChanges();
+                using (var db = new DataClasses1DataContext())
+                {
+                    var existingClass = db.Classes.FirstOrDefault(c => c.ClassID == txtClassID.Text.Trim());
+                    existingClass.ClassName = txtClassName.Text.Trim();
+                    db.SubmitChanges();
+                }
+                MessageBox.Show("Sửa lớp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearInputs();
+                LoadClasses();
             }
-
-            MessageBox.Show("Sửa lớp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            ClearInputs();
-            LoadClasses();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi sửa lớp: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext())
+            try
             {
-                var hasStudents = db.Students.Any(s => s.ClassID == txtClassID.Text.Trim());
-                if (hasStudents)
+                using (var db = new DataClasses1DataContext())
                 {
-                    MessageBox.Show("Không thể xóa! Lớp này còn sinh viên.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    var hasStudents = db.Students.Any(s => s.ClassID == txtClassID.Text.Trim());
+                    if (hasStudents)
+                    {
+                        MessageBox.Show("Không thể xóa! Lớp này còn sinh viên.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    var existingClass = db.Classes.FirstOrDefault(c => c.ClassID == txtClassID.Text.Trim());
+                    var confirm = MessageBox.Show($"Bạn có chắc muốn xóa lớp {existingClass.ClassID}?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (confirm == DialogResult.Yes)
+                    {
+                        db.Classes.DeleteOnSubmit(existingClass);
+                        db.SubmitChanges();
+                        MessageBox.Show("Xóa lớp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ClearInputs();
+                        LoadClasses();
+                    }
                 }
-
-                var existingClass = db.Classes.FirstOrDefault(c => c.ClassID == txtClassID.Text.Trim());
-
-                var confirm = MessageBox.Show($"Bạn có chắc muốn xóa lớp {existingClass.ClassID}?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (confirm == DialogResult.Yes)
-                {
-                    db.Classes.DeleteOnSubmit(existingClass);
-                    db.SubmitChanges();
-
-                    MessageBox.Show("Xóa lớp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ClearInputs();
-                    LoadClasses();
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi xóa lớp: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

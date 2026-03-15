@@ -21,32 +21,38 @@ namespace QuanLySinhVienApp
         }
         private void LoadStudents(string keyword = "")
         {
-            using (var db = new DataClasses1DataContext())
+            try
             {
-                var query = from s in db.Students
-                            where keyword == "" || s.StudentID.Contains(keyword) || s.FullName.Contains(keyword) || s.ClassID.Contains(keyword)
-                            select new
-                            {
-                                s.StudentID,
-                                s.FullName,
-                                s.Age,
-                                s.ClassID,
-                            };
-
-                dgvStudents.DataSource = query.ToList();
+                using (var db = new DataClasses1DataContext())
+                {
+                    var query = from s in db.Students
+                                where keyword == "" || s.StudentID.Contains(keyword) || s.FullName.Contains(keyword) || s.ClassID.Contains(keyword)
+                                select new { s.StudentID, s.FullName, s.Age, s.ClassID };
+                    dgvStudents.DataSource = query.ToList();
+                }
+                ToggleDeleteAllButton();
             }
-
-            ToggleDeleteAllButton();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải danh sách sinh viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LoadComboBox()
         {
-            using (var db = new DataClasses1DataContext())
+            try
             {
-                cboClassID.DataSource = db.Classes.ToList();
-                cboClassID.DisplayMember = "ClassID"; 
-                cboClassID.ValueMember = "ClassID";  
-                cboClassID.SelectedIndex = -1;   
+                using (var db = new DataClasses1DataContext())
+                {
+                    cboClassID.DataSource = db.Classes.ToList();
+                    cboClassID.DisplayMember = "ClassID";
+                    cboClassID.ValueMember = "ClassID";
+                    cboClassID.SelectedIndex = -1;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải danh sách lớp: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -58,59 +64,70 @@ namespace QuanLySinhVienApp
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext())
+            try
             {
-                var newStudent = new Student
+                using (var db = new DataClasses1DataContext())
                 {
-                    StudentID = txtStudentID.Text.Trim(),
-                    FullName = txtFullName.Text.Trim(),
-                    Age = (int)nudAge.Value,
-                    ClassID = cboClassID.SelectedValue.ToString()
-                };
-                db.Students.InsertOnSubmit(newStudent);
-                db.SubmitChanges();
+                    var newStudent = new Student { StudentID = txtStudentID.Text.Trim(), FullName = txtFullName.Text.Trim(), Age = (int)nudAge.Value, ClassID = cboClassID.SelectedValue.ToString() };
+                    db.Students.InsertOnSubmit(newStudent);
+                    db.SubmitChanges();
+                }
+                MessageBox.Show("Thêm sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearInputs();
+                LoadStudents();
             }
-
-            MessageBox.Show("Thêm sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            ClearInputs();
-            LoadStudents();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi thêm sinh viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext())
+            try
             {
-                var existingStudent = db.Students.FirstOrDefault(c => c.StudentID == txtStudentID.Text.Trim());
-                existingStudent.FullName = txtFullName.Text.Trim();
-                existingStudent.Age = (int)nudAge.Value;
-                existingStudent.ClassID = cboClassID.SelectedValue.ToString();
-                db.SubmitChanges();
+                using (var db = new DataClasses1DataContext())
+                {
+                    var existingStudent = db.Students.FirstOrDefault(s => s.StudentID == txtStudentID.Text.Trim());
+                    existingStudent.FullName = txtFullName.Text.Trim();
+                    existingStudent.Age = (int)nudAge.Value;
+                    existingStudent.ClassID = cboClassID.SelectedValue.ToString();
+                    db.SubmitChanges();
+                }
+                MessageBox.Show("Sửa sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearInputs();
+                LoadStudents();
             }
-
-            MessageBox.Show("Sửa sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            ClearInputs();
-            LoadStudents();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi sửa sinh viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            using (var db = new DataClasses1DataContext())
+            try
             {
-                var existingStudent = db.Students.FirstOrDefault(c => c.StudentID == txtStudentID.Text.Trim());
-
-                var confirm = MessageBox.Show($"Bạn có chắc muốn xóa sinh viên {existingStudent.StudentID}?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (confirm == DialogResult.Yes)
+                using (var db = new DataClasses1DataContext())
                 {
-                    db.Students.DeleteOnSubmit(existingStudent);
-                    db.SubmitChanges();
-
-                    MessageBox.Show("Xóa sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ClearInputs();
-                    LoadStudents();
+                    var existingStudent = db.Students.FirstOrDefault(s => s.StudentID == txtStudentID.Text.Trim());
+                    var confirm = MessageBox.Show($"Bạn có chắc muốn xóa sinh viên {existingStudent.StudentID}?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (confirm == DialogResult.Yes)
+                    {
+                        db.Students.DeleteOnSubmit(existingStudent);
+                        db.SubmitChanges();
+                        MessageBox.Show("Xóa sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ClearInputs();
+                        LoadStudents();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi xóa sinh viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         private void btnDeleteAll_Click(object sender, EventArgs e)
         {

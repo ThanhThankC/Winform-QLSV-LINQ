@@ -40,25 +40,32 @@ namespace QuanLySinhVienApp
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string username = txtUsername.Text.Trim();
-            string password = txtPassword.Text.Trim();
-
-            using (var db = new DataClasses1DataContext())
+            try
             {
-                var user = (from u in db.Users where u.Username == username && u.Password == password select u).FirstOrDefault();
+                string username = txtUsername.Text.Trim();
+                string password = txtPassword.Text.Trim();
 
-                if (user != null)
+                using (var db = new DataClasses1DataContext())
                 {
-                    frmMain frmMain = new frmMain();
-                    frmMain.Show();
-                    this.Hide();
+                    var user = (from u in db.Users where u.Username == username && u.Password == password select u).FirstOrDefault();
+
+                    if (user != null)
+                    {
+                        frmMain frmMain = new frmMain();
+                        frmMain.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtPassword.Clear();
+                        txtPassword.Focus();
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtPassword.Clear();
-                    txtPassword.Focus();
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi kết nối: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

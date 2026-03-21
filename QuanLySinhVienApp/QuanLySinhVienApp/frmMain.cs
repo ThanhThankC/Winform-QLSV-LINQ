@@ -17,29 +17,22 @@ namespace QuanLySinhVienApp
             InitializeComponent();
         }
 
-        private void btnStudents_Click(object sender, EventArgs e)
+        private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            frmStudent frmStudent = new frmStudent();
-            frmStudent.Show();
-            this.Close();
-        }
-
-        private void btnClasses_Click(object sender, EventArgs e)
-        {
-            frmClass frmClass = new frmClass();
-            frmClass.Show();
-            this.Close();
-        }
-
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            var confirm = MessageBox.Show("Bạn có chắc muốn đăng xuất?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (confirm == DialogResult.Yes)
+            if (tabMain.SelectedTab == tabLogout)
             {
-                frmLogin frmLogin = new frmLogin();
-                frmLogin.Show();
-                this.Close();
+                var confirm = MessageBox.Show("Bạn có chắc muốn đăng xuất?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (confirm == DialogResult.Yes)
+                {
+                    frmLogin frmLogin = new frmLogin();
+                    frmLogin.Show();
+                    this.Close();
+                }
+                else
+                {
+                    tabMain.SelectedIndex = 0;
+                }
             }
         }
     }

@@ -216,6 +216,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="usClasses.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usClasses.Designer.cs">
+      <DependentUpon>usClasses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="usStudents.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usStudents.Designer.cs">
+      <DependentUpon>usStudents.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frmClass.resx">
       <DependentUpon>frmClass.cs</DependentUpon>
     </EmbeddedResource>
@@ -237,6 +249,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="usClasses.resx">
+      <DependentUpon>usClasses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usStudents.resx">
+      <DependentUpon>usStudents.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="DataClasses1.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>

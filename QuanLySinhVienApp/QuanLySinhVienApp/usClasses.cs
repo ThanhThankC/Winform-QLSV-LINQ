@@ -15,10 +15,31 @@ namespace QuanLySinhVienApp
         public usClasses()
         {
             InitializeComponent();
-            LoadClasses();
-            UpdateButtonVisual(false);
         }
 
+        private void usClasses_Load(object sender, EventArgs e)
+        {
+            LoadDepartments();
+            LoadClasses();
+            UpdateButtons();
+        }
+
+        private void LoadDepartments()
+        {
+            try
+            {
+                using (var db = new DataClasses1DataContext())
+                {
+                    cboDepartment.DataSource = db.Departments.ToList();
+                    cboDepartment.DisplayMember = "DepartmentName";
+                    cboDepartment.ValueMember = "DepartmentID";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void LoadClasses(string keyword = "")
         {
@@ -27,21 +48,29 @@ namespace QuanLySinhVienApp
                 using (var db = new DataClasses1DataContext())
                 {
                     var query = from c in db.Classes
-                                where keyword == "" || c.ClassID.Contains(keyword) || c.ClassName.Contains(keyword)
-                                select c;
+                                join d in db.Departments on c.DepartmentID equals d.DepartmentID
+                                where c.ClassID.Contains(keyword) || c.ClassName.Contains(keyword)
+                                select new
+                                {
+                                    c.ClassID,
+                                    c.ClassName,
+                                    c.DepartmentID,
+                                    d.DepartmentName,
+                                    CountStudents = db.Students.Count(s => s.ClassID == c.ClassID),
+                                };
+
                     dgvClasses.DataSource = query.ToList();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi tải danh sách lớp: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            string keyword = txtSearch.Text.Trim();
-            LoadClasses(keyword);
+            LoadClasses(txtSearch.Text.Trim());
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -50,17 +79,22 @@ namespace QuanLySinhVienApp
             {
                 using (var db = new DataClasses1DataContext())
                 {
-                    var newClass = new Class { ClassID = txtClassID.Text.Trim(), ClassName = txtClassName.Text.Trim() };
+                    var newClass = new Class
+                    {
+                        ClassID = txtClassID.Text.Trim(),
+                        ClassName = txtClassName.Text.Trim(),
+                        DepartmentID = cboDepartment.SelectedValue.ToString()
+                    };
                     db.Classes.InsertOnSubmit(newClass);
                     db.SubmitChanges();
                 }
                 MessageBox.Show("Thêm lớp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ClearInputs();
                 LoadClasses();
+                ClearForm();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi thêm lớp: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -70,17 +104,20 @@ namespace QuanLySinhVienApp
             {
                 using (var db = new DataClasses1DataContext())
                 {
-                    var existingClass = db.Classes.FirstOrDefault(c => c.ClassID == txtClassID.Text.Trim());
-                    existingClass.ClassName = txtClassName.Text.Trim();
+                    var existing = db.Classes.FirstOrDefault(c => c.ClassID == txtClassID.Text.Trim());
+                    if (existing == null) return;
+
+                    existing.ClassName = txtClassName.Text.Trim();
+                    existing.DepartmentID = cboDepartment.SelectedValue.ToString();
                     db.SubmitChanges();
                 }
-                MessageBox.Show("Sửa lớp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ClearInputs();
+                MessageBox.Show("Cập nhật lớp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadClasses();
+                ClearForm();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi sửa lớp: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -90,36 +127,36 @@ namespace QuanLySinhVienApp
             {
                 using (var db = new DataClasses1DataContext())
                 {
-                    var hasStudents = db.Students.Any(s => s.ClassID == txtClassID.Text.Trim());
+                    bool hasStudents = db.Students.Any(s => s.ClassID == txtClassID.Text.Trim());
                     if (hasStudents)
                     {
-                        MessageBox.Show("Không thể xóa! Lớp này còn sinh viên.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Không thể xóa! Lớp này vẫn còn sinh viên.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
 
-                    var existingClass = db.Classes.FirstOrDefault(c => c.ClassID == txtClassID.Text.Trim());
-                    var confirm = MessageBox.Show($"Bạn có chắc muốn xóa lớp {existingClass.ClassID}?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    var existing = db.Classes.FirstOrDefault(c => c.ClassID == txtClassID.Text.Trim());
+                    if (existing == null) return;
 
-                    if (confirm == DialogResult.Yes)
-                    {
-                        db.Classes.DeleteOnSubmit(existingClass);
-                        db.SubmitChanges();
-                        MessageBox.Show("Xóa lớp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        ClearInputs();
-                        LoadClasses();
-                    }
+                    var result = MessageBox.Show("Bạn có chắc muốn xóa lớp này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result != DialogResult.Yes) return;
+
+                    db.Classes.DeleteOnSubmit(existing);
+                    db.SubmitChanges();
                 }
+                MessageBox.Show("Xóa lớp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadClasses();
+                ClearForm();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi xóa lớp: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            ClearInputs();
-            UpdateButtonVisual(false);
+            ClearForm();
+            UpdateButtons();
         }
 
         private void txtClassID_TextChanged(object sender, EventArgs e)
@@ -140,27 +177,51 @@ namespace QuanLySinhVienApp
             txtClassID_TextChanged(sender, e);
         }
 
-        private void UpdateButtonVisual(bool isValid)
+        private void UpdateButtons()
         {
-            btnAdd.Enabled = isValid;
-            btnEdit.Enabled = isValid;
-            btnDelete.Enabled = isValid;
+            bool isValid = !string.IsNullOrEmpty(txtClassID.Text.Trim()) && !string.IsNullOrEmpty(txtClassName.Text.Trim());
+
+            try
+            {
+                using (var db = new DataClasses1DataContext())
+                {
+                    bool exists = db.Classes.Any(c => c.ClassID == txtClassID.Text.Trim());
+                    int countStudents = db.Students.Count(s => s.ClassID == txtClassID.Text.Trim());
+                    btnAdd.Enabled = isValid && !exists;
+                    btnEdit.Enabled = isValid && exists;
+                    btnDelete.Enabled = exists && countStudents == 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void ClearInputs()
+        private void ClearForm()
         {
-            txtClassID.Text = "";
-            txtClassName.Text = "";
-            txtSearch.Text = "";
+            txtClassID.Clear();
+            txtClassName.Clear();
+            if (cboDepartment.Items.Count > 0) cboDepartment.SelectedIndex = 0;
+            btnAdd.Enabled = false;
+            btnEdit.Enabled = false;
+            btnDelete.Enabled = false;
+            dgvClasses.ClearSelection();
+            txtClassID.Focus();
+            txtSearch.Clear();
         }
 
         private void dgvClasses_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                txtClassID.Text = dgvClasses.Rows[e.RowIndex].Cells["ClassID"].Value.ToString();
-                txtClassName.Text = dgvClasses.Rows[e.RowIndex].Cells["ClassName"].Value.ToString();
-            }
+            if (e.RowIndex < 0) return;
+
+            txtClassID.Text = dgvClasses.Rows[e.RowIndex].Cells["colClassID"].Value.ToString();
+            txtClassName.Text = dgvClasses.Rows[e.RowIndex].Cells["colClassName"].Value.ToString();
+            cboDepartment.SelectedValue = dgvClasses.Rows[e.RowIndex].Cells["colDepartmentID"].Value.ToString();
+
+            UpdateButtons();
         }
+
+
     }
 }

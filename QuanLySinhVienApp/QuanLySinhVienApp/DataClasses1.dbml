@@ -4,7 +4,9 @@
     <Type Name="Class">
       <Column Name="ClassID" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="ClassName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="DepartmentID" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Association Name="Class_Student" Member="Students" ThisKey="ClassID" OtherKey="ClassID" Type="Student" />
+      <Association Name="Department_Class" Member="Department" ThisKey="DepartmentID" OtherKey="DepartmentID" Type="Department" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Users" Member="Users">
@@ -14,13 +16,52 @@
       <Column Name="Role" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Departments" Member="Departments">
+    <Type Name="Department">
+      <Column Name="DepartmentID" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DepartmentName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="Department_Class" Member="Classes" ThisKey="DepartmentID" OtherKey="DepartmentID" Type="Class" />
+      <Association Name="Department_Teacher" Member="Teachers" ThisKey="DepartmentID" OtherKey="DepartmentID" Type="Teacher" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Grades" Member="Grades">
+    <Type Name="Grade">
+      <Column Name="StudentID" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MidtermScore" Type="System.Decimal" DbType="Decimal(4,2)" CanBeNull="true" />
+      <Column Name="FinalScore" Type="System.Decimal" DbType="Decimal(4,2)" CanBeNull="true" />
+      <Association Name="Student_Grade" Member="Student" ThisKey="StudentID" OtherKey="StudentID" Type="Student" IsForeignKey="true" />
+      <Association Name="Subject_Grade" Member="Subject" ThisKey="SubjectID" OtherKey="SubjectID" Type="Subject" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Students" Member="Students">
     <Type Name="Student">
       <Column Name="StudentID" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="FullName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="Age" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="ClassID" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="Student_Grade" Member="Grades" ThisKey="StudentID" OtherKey="StudentID" Type="Grade" />
       <Association Name="Class_Student" Member="Class" ThisKey="ClassID" OtherKey="ClassID" Type="Class" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Subjects" Member="Subjects">
+    <Type Name="Subject">
+      <Column Name="SubjectID" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SubjectName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Credits" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TeacherID" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="Subject_Grade" Member="Grades" ThisKey="SubjectID" OtherKey="SubjectID" Type="Grade" />
+      <Association Name="Teacher_Subject" Member="Teacher" ThisKey="TeacherID" OtherKey="TeacherID" Type="Teacher" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Teachers" Member="Teachers">
+    <Type Name="Teacher">
+      <Column Name="TeacherID" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="DepartmentID" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="Teacher_Subject" Member="Subjects" ThisKey="TeacherID" OtherKey="TeacherID" Type="Subject" />
+      <Association Name="Department_Teacher" Member="Department" ThisKey="DepartmentID" OtherKey="DepartmentID" Type="Department" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

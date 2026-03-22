@@ -190,12 +190,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>
-    <Compile Include="frmClass.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmClass.Designer.cs">
-      <DependentUpon>frmClass.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -208,12 +202,6 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmStudent.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmStudent.Designer.cs">
-      <DependentUpon>frmStudent.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="usClasses.cs">
@@ -222,23 +210,17 @@
     <Compile Include="usClasses.Designer.cs">
       <DependentUpon>usClasses.cs</DependentUpon>
     </Compile>
-    <Compile Include="usStudents.cs">
+    <Compile Include="usStudent.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="usStudents.Designer.cs">
-      <DependentUpon>usStudents.cs</DependentUpon>
+    <Compile Include="usStudent.Designer.cs">
+      <DependentUpon>usStudent.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="frmClass.resx">
-      <DependentUpon>frmClass.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmStudent.resx">
-      <DependentUpon>frmStudent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -252,8 +234,8 @@
     <EmbeddedResource Include="usClasses.resx">
       <DependentUpon>usClasses.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="usStudents.resx">
-      <DependentUpon>usStudents.cs</DependentUpon>
+    <EmbeddedResource Include="usStudent.resx">
+      <DependentUpon>usStudent.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="DataClasses1.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>

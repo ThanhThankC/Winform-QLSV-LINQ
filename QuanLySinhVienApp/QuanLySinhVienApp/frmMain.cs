@@ -25,15 +25,26 @@ namespace QuanLySinhVienApp
 
                 if (confirm == DialogResult.Yes)
                 {
-                    frmLogin frmLogin = new frmLogin();
-                    frmLogin.Show();
                     this.Close();
+                    foreach (Form f in Application.OpenForms)
+                    {
+                        if (f is frmLogin)
+                        {
+                            f.Show();
+                            break;
+                        }
+                    }
                 }
                 else
                 {
                     tabMain.SelectedIndex = 0;
                 }
             }
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            lblWelcome.Text = "Xin chào, " + frmLogin.LoggedInUsername + "!";
         }
     }
 }

@@ -37,9 +37,13 @@
             this.tabGrade = new System.Windows.Forms.TabPage();
             this.tabLogout = new System.Windows.Forms.TabPage();
             this.lblWelcome = new System.Windows.Forms.Label();
+            this.ucSubject1 = new QuanLySinhVienApp.ucSubject();
+            this.ucGrade1 = new QuanLySinhVienApp.ucGrade();
             this.tabMain.SuspendLayout();
             this.tabStudents.SuspendLayout();
             this.tabClasses.SuspendLayout();
+            this.tabSubject.SuspendLayout();
+            this.tabGrade.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabMain
@@ -107,6 +111,7 @@
             // 
             // tabSubject
             // 
+            this.tabSubject.Controls.Add(this.ucSubject1);
             this.tabSubject.Location = new System.Drawing.Point(4, 49);
             this.tabSubject.Name = "tabSubject";
             this.tabSubject.Size = new System.Drawing.Size(1539, 765);
@@ -116,6 +121,7 @@
             // 
             // tabGrade
             // 
+            this.tabGrade.Controls.Add(this.ucGrade1);
             this.tabGrade.Location = new System.Drawing.Point(4, 49);
             this.tabGrade.Name = "tabGrade";
             this.tabGrade.Size = new System.Drawing.Size(1539, 765);
@@ -144,6 +150,24 @@
             this.lblWelcome.TabIndex = 9;
             this.lblWelcome.Text = "Xin chào, ...";
             // 
+            // ucSubject1
+            // 
+            this.ucSubject1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucSubject1.Location = new System.Drawing.Point(0, 0);
+            this.ucSubject1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ucSubject1.Name = "ucSubject1";
+            this.ucSubject1.Size = new System.Drawing.Size(1539, 765);
+            this.ucSubject1.TabIndex = 0;
+            // 
+            // ucGrade1
+            // 
+            this.ucGrade1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucGrade1.Location = new System.Drawing.Point(0, 0);
+            this.ucGrade1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ucGrade1.Name = "ucGrade1";
+            this.ucGrade1.Size = new System.Drawing.Size(1539, 765);
+            this.ucGrade1.TabIndex = 0;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -158,6 +182,8 @@
             this.tabMain.ResumeLayout(false);
             this.tabStudents.ResumeLayout(false);
             this.tabClasses.ResumeLayout(false);
+            this.tabSubject.ResumeLayout(false);
+            this.tabGrade.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -173,5 +199,7 @@
         private System.Windows.Forms.TabPage tabGrade;
         private usClasses usClasses1;
         private usStudents usStudents2;
+        private ucSubject ucSubject1;
+        private ucGrade ucGrade1;
     }
 }

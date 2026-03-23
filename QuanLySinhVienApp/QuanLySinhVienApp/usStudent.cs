@@ -117,6 +117,8 @@ namespace QuanLySinhVienApp
             btnAdd.Enabled = false;
             btnEdit.Enabled = false;
             btnDelete.Enabled = false;
+            dgvStudents.ClearSelection();
+            txtSearch.Clear();
         }
 
 

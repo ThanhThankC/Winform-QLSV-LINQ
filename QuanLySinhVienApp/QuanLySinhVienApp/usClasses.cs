@@ -221,7 +221,5 @@ namespace QuanLySinhVienApp
 
             UpdateButtons();
         }
-
-
     }
 }

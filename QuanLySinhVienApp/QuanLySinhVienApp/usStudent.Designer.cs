@@ -68,9 +68,9 @@
             this.pnlList.Controls.Add(this.txtSearch);
             this.pnlList.Controls.Add(this.lblSearch);
             this.pnlList.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlList.Location = new System.Drawing.Point(822, 39);
+            this.pnlList.Location = new System.Drawing.Point(674, 39);
             this.pnlList.Name = "pnlList";
-            this.pnlList.Size = new System.Drawing.Size(650, 856);
+            this.pnlList.Size = new System.Drawing.Size(798, 856);
             this.pnlList.TabIndex = 42;
             // 
             // btnNext
@@ -81,7 +81,7 @@
             this.btnNext.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnNext.Location = new System.Drawing.Point(494, 786);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(135, 40);
+            this.btnNext.Size = new System.Drawing.Size(283, 40);
             this.btnNext.TabIndex = 46;
             this.btnNext.Text = "Sau ▶";
             this.btnNext.UseVisualStyleBackColor = true;
@@ -93,7 +93,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPage.AutoSize = true;
             this.lblPage.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPage.Location = new System.Drawing.Point(270, 793);
+            this.lblPage.Location = new System.Drawing.Point(347, 793);
             this.lblPage.Name = "lblPage";
             this.lblPage.Size = new System.Drawing.Size(118, 27);
             this.lblPage.TabIndex = 45;
@@ -107,7 +107,7 @@
             this.btnPrev.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnPrev.Location = new System.Drawing.Point(27, 786);
             this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Size = new System.Drawing.Size(135, 40);
+            this.btnPrev.Size = new System.Drawing.Size(283, 40);
             this.btnPrev.TabIndex = 45;
             this.btnPrev.Text = "◀ Trước";
             this.btnPrev.UseVisualStyleBackColor = true;
@@ -121,11 +121,11 @@
             this.dgvStudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvStudents.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dgvStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvStudents.Location = new System.Drawing.Point(27, 94);
+            this.dgvStudents.Location = new System.Drawing.Point(27, 67);
             this.dgvStudents.Name = "dgvStudents";
             this.dgvStudents.RowHeadersWidth = 51;
             this.dgvStudents.RowTemplate.Height = 24;
-            this.dgvStudents.Size = new System.Drawing.Size(602, 653);
+            this.dgvStudents.Size = new System.Drawing.Size(750, 696);
             this.dgvStudents.TabIndex = 24;
             this.dgvStudents.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStudents_CellClick);
             // 
@@ -137,7 +137,7 @@
             this.txtSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearch.Location = new System.Drawing.Point(152, 12);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(477, 28);
+            this.txtSearch.Size = new System.Drawing.Size(625, 28);
             this.txtSearch.TabIndex = 28;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
@@ -176,38 +176,41 @@
             this.pnlForm.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlForm.Location = new System.Drawing.Point(0, 39);
             this.pnlForm.Name = "pnlForm";
-            this.pnlForm.Size = new System.Drawing.Size(597, 856);
+            this.pnlForm.Size = new System.Drawing.Size(555, 856);
             this.pnlForm.TabIndex = 41;
-            this.pnlForm.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlForm_Paint);
             // 
             // cboClass
             // 
+            this.cboClass.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cboClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboClass.FormattingEnabled = true;
-            this.cboClass.Location = new System.Drawing.Point(145, 407);
+            this.cboClass.Location = new System.Drawing.Point(145, 334);
             this.cboClass.Name = "cboClass";
-            this.cboClass.Size = new System.Drawing.Size(424, 33);
+            this.cboClass.Size = new System.Drawing.Size(384, 33);
             this.cboClass.TabIndex = 44;
+            this.cboClass.SelectedIndexChanged += new System.EventHandler(this.cboClass_SelectedIndexChanged);
             // 
             // cboGender
             // 
+            this.cboGender.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cboGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboGender.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboGender.FormattingEnabled = true;
             this.cboGender.Items.AddRange(new object[] {
             "Nam",
             "Nữ"});
-            this.cboGender.Location = new System.Drawing.Point(145, 334);
+            this.cboGender.Location = new System.Drawing.Point(145, 277);
             this.cboGender.Name = "cboGender";
-            this.cboGender.Size = new System.Drawing.Size(424, 33);
+            this.cboGender.Size = new System.Drawing.Size(384, 33);
             this.cboGender.TabIndex = 43;
             // 
             // lblGender
             // 
+            this.lblGender.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblGender.AutoSize = true;
             this.lblGender.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGender.Location = new System.Drawing.Point(27, 348);
+            this.lblGender.Location = new System.Drawing.Point(27, 275);
             this.lblGender.Name = "lblGender";
             this.lblGender.Size = new System.Drawing.Size(95, 27);
             this.lblGender.TabIndex = 42;
@@ -215,9 +218,10 @@
             // 
             // lblClass
             // 
+            this.lblClass.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblClass.AutoSize = true;
             this.lblClass.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClass.Location = new System.Drawing.Point(27, 421);
+            this.lblClass.Location = new System.Drawing.Point(27, 334);
             this.lblClass.Name = "lblClass";
             this.lblClass.Size = new System.Drawing.Size(51, 27);
             this.lblClass.TabIndex = 41;
@@ -225,9 +229,10 @@
             // 
             // lblAge
             // 
+            this.lblAge.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblAge.AutoSize = true;
             this.lblAge.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAge.Location = new System.Drawing.Point(452, 271);
+            this.lblAge.Location = new System.Drawing.Point(452, 223);
             this.lblAge.Name = "lblAge";
             this.lblAge.Size = new System.Drawing.Size(77, 27);
             this.lblAge.TabIndex = 40;
@@ -235,9 +240,10 @@
             // 
             // lblDOB
             // 
+            this.lblDOB.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblDOB.AutoSize = true;
             this.lblDOB.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDOB.Location = new System.Drawing.Point(27, 270);
+            this.lblDOB.Location = new System.Drawing.Point(27, 222);
             this.lblDOB.Name = "lblDOB";
             this.lblDOB.Size = new System.Drawing.Size(112, 27);
             this.lblDOB.TabIndex = 39;
@@ -245,50 +251,61 @@
             // 
             // dtpDOB
             // 
+            this.dtpDOB.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dtpDOB.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDOB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpDOB.Location = new System.Drawing.Point(163, 270);
+            this.dtpDOB.Location = new System.Drawing.Point(145, 221);
             this.dtpDOB.Name = "dtpDOB";
             this.dtpDOB.Size = new System.Drawing.Size(225, 28);
             this.dtpDOB.TabIndex = 38;
+            this.dtpDOB.ValueChanged += new System.EventHandler(this.dtpDOB_ValueChanged);
             // 
             // btnDelete
             // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.ForeColor = System.Drawing.Color.Red;
-            this.btnDelete.Location = new System.Drawing.Point(128, 666);
+            this.btnDelete.Location = new System.Drawing.Point(131, 738);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(135, 40);
             this.btnDelete.TabIndex = 21;
             this.btnDelete.Text = "Xóa";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnAdd
             // 
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btnAdd.Location = new System.Drawing.Point(128, 595);
+            this.btnAdd.Location = new System.Drawing.Point(131, 667);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(135, 40);
             this.btnAdd.TabIndex = 19;
             this.btnAdd.Text = "Thêm";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // cboFilterClass
             // 
+            this.cboFilterClass.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cboFilterClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboFilterClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboFilterClass.FormattingEnabled = true;
-            this.cboFilterClass.Location = new System.Drawing.Point(145, 36);
+            this.cboFilterClass.Location = new System.Drawing.Point(145, 43);
             this.cboFilterClass.Name = "cboFilterClass";
-            this.cboFilterClass.Size = new System.Drawing.Size(424, 33);
+            this.cboFilterClass.Size = new System.Drawing.Size(384, 33);
             this.cboFilterClass.TabIndex = 37;
+            this.cboFilterClass.SelectedIndexChanged += new System.EventHandler(this.cboFilterClass_SelectedIndexChanged);
             // 
             // lblFilterClass
             // 
+            this.lblFilterClass.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblFilterClass.AutoSize = true;
             this.lblFilterClass.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFilterClass.Location = new System.Drawing.Point(27, 46);
+            this.lblFilterClass.Location = new System.Drawing.Point(27, 45);
             this.lblFilterClass.Name = "lblFilterClass";
             this.lblFilterClass.Size = new System.Drawing.Size(83, 27);
             this.lblFilterClass.TabIndex = 34;
@@ -296,39 +313,47 @@
             // 
             // btnEdit
             // 
+            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEdit.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btnEdit.Location = new System.Drawing.Point(342, 595);
+            this.btnEdit.Location = new System.Drawing.Point(345, 667);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(135, 40);
             this.btnEdit.TabIndex = 20;
             this.btnEdit.Text = "Sửa";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnClear
             // 
+            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClear.Location = new System.Drawing.Point(342, 666);
+            this.btnClear.Location = new System.Drawing.Point(345, 738);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(135, 40);
             this.btnClear.TabIndex = 22;
             this.btnClear.Text = "Làm mới";
             this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // txtFullName
             // 
+            this.txtFullName.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtFullName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFullName.Location = new System.Drawing.Point(145, 185);
+            this.txtFullName.Location = new System.Drawing.Point(145, 160);
             this.txtFullName.Name = "txtFullName";
-            this.txtFullName.Size = new System.Drawing.Size(424, 30);
+            this.txtFullName.Size = new System.Drawing.Size(384, 30);
             this.txtFullName.TabIndex = 31;
             this.txtFullName.TextChanged += new System.EventHandler(this.txtFullName_TextChanged_1);
             // 
             // lblFullName
             // 
+            this.lblFullName.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblFullName.AutoSize = true;
             this.lblFullName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFullName.Location = new System.Drawing.Point(27, 196);
+            this.lblFullName.Location = new System.Drawing.Point(27, 163);
             this.lblFullName.Name = "lblFullName";
             this.lblFullName.Size = new System.Drawing.Size(75, 25);
             this.lblFullName.TabIndex = 30;
@@ -336,18 +361,20 @@
             // 
             // txtStudentID
             // 
+            this.txtStudentID.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtStudentID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStudentID.Location = new System.Drawing.Point(145, 113);
+            this.txtStudentID.Location = new System.Drawing.Point(145, 104);
             this.txtStudentID.Name = "txtStudentID";
-            this.txtStudentID.Size = new System.Drawing.Size(424, 30);
+            this.txtStudentID.Size = new System.Drawing.Size(384, 30);
             this.txtStudentID.TabIndex = 18;
             this.txtStudentID.TextChanged += new System.EventHandler(this.txtStudentID_TextChanged);
             // 
             // lblStudentID
             // 
+            this.lblStudentID.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblStudentID.AutoSize = true;
             this.lblStudentID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStudentID.Location = new System.Drawing.Point(27, 126);
+            this.lblStudentID.Location = new System.Drawing.Point(27, 109);
             this.lblStudentID.Name = "lblStudentID";
             this.lblStudentID.Size = new System.Drawing.Size(77, 25);
             this.lblStudentID.TabIndex = 17;
@@ -373,6 +400,7 @@
             this.Controls.Add(this.lblTitle);
             this.Name = "usStudents";
             this.Size = new System.Drawing.Size(1472, 895);
+            this.Load += new System.EventHandler(this.usStudents_Load);
             this.pnlList.ResumeLayout(false);
             this.pnlList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).EndInit();

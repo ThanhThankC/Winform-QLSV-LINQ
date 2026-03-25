@@ -76,10 +76,11 @@
             // 
             // usStudents2
             // 
-            this.usStudents2.Location = new System.Drawing.Point(115, 142);
+            this.usStudents2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.usStudents2.Location = new System.Drawing.Point(3, 3);
             this.usStudents2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.usStudents2.Name = "usStudents2";
-            this.usStudents2.Size = new System.Drawing.Size(1472, 895);
+            this.usStudents2.Size = new System.Drawing.Size(1533, 759);
             this.usStudents2.TabIndex = 0;
             // 
             // tabClasses
